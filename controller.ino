@@ -3,7 +3,7 @@
 #define TX 1
 #define RX 2
 
-#define STATE RX
+#define STATE TX
 
 #define CE_PIN   9
 #define CSN_PIN 10
