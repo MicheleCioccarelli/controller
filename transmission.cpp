@@ -7,8 +7,13 @@ bool receive_data()
     if ( radio.available())
     {
         radio.read( &dataReceived, ARRAY_SIZE);
-        Serial.print("Data received ");
-        Serial.println(dataReceived);
+        Serial.println("Data received ");
+        for (int i = 0; i < ARRAY_SIZE; i++)
+        {
+          int info = dataReceived[i];
+          Serial.print(info);
+          Serial.print(" ");
+        }
         return true;
     }
     else 
@@ -23,7 +28,7 @@ bool transmit_data()
     if (radio.write(&dataToSend, ARRAY_SIZE))
     {
         Serial.println("data sent");
-        Serial.println(dataToSend);
+        //Serial.println(dataToSend);
         return true;
     } else 
     {

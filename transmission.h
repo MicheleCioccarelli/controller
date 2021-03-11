@@ -6,8 +6,8 @@
 
 extern RF24 radio;
 
-extern char dataToSend[];
-extern char dataReceived[];
+extern byte dataToSend[];
+extern byte dataReceived[];
 extern const byte thisSlaveAddress[5];
 
 bool transmit_data();

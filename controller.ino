@@ -13,12 +13,10 @@ RF24 radio(CE_PIN, CSN_PIN);
 
 const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
 
-bool newData = false;
 // This is manipulated by transmit_data() and receive_data()
 bool result = false;
-
-char dataToSend[ARRAY_SIZE] = {"123456789101"};
-char dataReceived[ARRAY_SIZE];
+byte dataToSend[ARRAY_SIZE] = {255, 200, 1, 57};
+byte dataReceived[ARRAY_SIZE];
 
 void setup() {
     Serial.begin(9600);
@@ -37,9 +35,9 @@ void setup() {
 
 void loop() {
     #if STATE == TX
-        transmit_data();
+        result = transmit_data();
     #elif STATE == RX
-        receive_data();
+        result = receive_data();
     #endif
     delay(1000);
 }
