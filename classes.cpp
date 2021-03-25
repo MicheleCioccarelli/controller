@@ -16,7 +16,7 @@ void Button::set_id(byte Id) {
     this->id = Id;
 }
 
-void Button::set_state(short State) {
+void Button::set_state(byte State) {
     this->state = State;
 }
 

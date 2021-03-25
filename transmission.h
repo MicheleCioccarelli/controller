@@ -5,11 +5,8 @@
 #include <RF24.h>
 
 extern RF24 radio;
-
-extern byte dataToSend[];
-extern byte dataReceived[];
 extern const byte thisSlaveAddress[5];
 
-bool transmit_data();
+bool transmit_data(byte stuffToSend[]);
 
-bool receive_data();
+bool receive_data(byte dataReceived[]);

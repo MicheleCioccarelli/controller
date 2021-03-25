@@ -1,4 +1,6 @@
 #include "transmission.h"
+#include "classes.h"
+#include "utilities.h"
 
 #define TX 1
 #define RX 2
@@ -15,10 +17,22 @@ const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
 
 // This is manipulated by transmit_data() and receive_data()
 bool result = false;
-byte dataToSend[ARRAY_SIZE] = {255, 200, 1, 57};
-byte dataReceived[ARRAY_SIZE];
 
-void setup() {
+#if STATE == TX
+    byte stuffToSend[ARRAY_SIZE];
+#elif STATE == RX
+    byte dataReceived[ARRAY_SIZE];
+#endif
+
+Button button(0, 1, 2);
+Button lever(1, 7, 3);
+Joystick j_l(2, 4);
+Joystick j_r(4, 6);
+Joystick p_l(6, 7);
+Joystick p_r(8, 9);
+    
+void setup() 
+{
     Serial.begin(9600);
     radio.begin();
     radio.setDataRate( RF24_250KBPS );
@@ -35,9 +49,9 @@ void setup() {
 
 void loop() {
     #if STATE == TX
-        result = transmit_data();
-    #elif STATE == RX
-        result = receive_data();
+        result = transmit_data(stuffToSend);
+    #elif STATE == RX-
+        result = receive_data(dataReceived);
     #endif
     delay(1000);
 }

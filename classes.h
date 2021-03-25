@@ -1,8 +1,6 @@
 #pragma once
-#include "iostream"
-#define ARRAY_SIZE 13
 
-#define byte short
+#include <Arduino.h>
 
 class Component {
 protected:

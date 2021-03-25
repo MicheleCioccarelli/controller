@@ -1,9 +1,12 @@
 #include "utilities.h"
 
-void printarray(byte stuffToSend[]) {
-    for (byte i = 0; i < 13; i++)
-        std::cout << stuffToSend[i] << " ";
-    std::cout << std::endl;
+void print_array(byte array[])
+{
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        Serial.print(array[i]);
+        Serial.print(" ");
+    }
+    Serial.println(" ");
 }
 
 void inject_all(Button button, Button lever,
@@ -20,12 +23,12 @@ void inject_all(Button button, Button lever,
 
 void update_all(Button button, Button lever,
                 Joystick j_l, Joystick j_r, Joystick p_l, Joystick p_r,
-                byte stuffToSend[])
+                byte dataReceived[])
 {
-    button.set_value(stuffToSend[0]);
-    lever.set_value(stuffToSend[1]);
-    j_l.set_values(stuffToSend[2], stuffToSend[3]);
-    j_l.set_values(stuffToSend[4], stuffToSend[5]);
-    p_l.set_values(stuffToSend[6], stuffToSend[7]);
-    p_r.set_values(stuffToSend[8], stuffToSend[9]);
+    button.set_value(dataReceived[0]);
+    lever.set_value(dataReceived[1]);
+    j_l.set_values(dataReceived[2], dataReceived[3]);
+    j_l.set_values(dataReceived[4], dataReceived[5]);
+    p_l.set_values(dataReceived[6], dataReceived[7]);
+    p_r.set_values(dataReceived[8], dataReceived[9]);
 }
