@@ -1,17 +1,17 @@
 #include "utilities.h"
 
-void print_array(byte array[])
+void print_array(const uint8_t array[])
 {
-    for (int i = 0; i < ARRAY_SIZE; i++) {
+    for (uint8_t i = 0; i < ARRAY_SIZE; i++) {
         Serial.print(array[i]);
         Serial.print(" ");
     }
     Serial.println(" ");
 }
 
-void inject_all(Button button, Button lever,
-                Joystick j_l, Joystick j_r, Joystick p_l, Joystick p_r,
-                byte stuffToSend[])
+void inject_all(Button& button, Button& lever,
+                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r,
+                 uint8_t stuffToSend[])
 {
     button.inject_value(stuffToSend);
     lever.inject_value(stuffToSend);
@@ -21,9 +21,9 @@ void inject_all(Button button, Button lever,
     p_r.inject_values(stuffToSend);
 }
 
-void update_all(Button button, Button lever,
-                Joystick j_l, Joystick j_r, Joystick p_l, Joystick p_r,
-                byte dataReceived[])
+void update_all(Button& button, Button& lever,
+                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r,
+                const uint8_t dataReceived[])
 {
     button.set_value(dataReceived[0]);
     lever.set_value(dataReceived[1]);

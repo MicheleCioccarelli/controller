@@ -1,4 +1,5 @@
 #pragma once
+#define ARRAY_SIZE 10
 
 #include <SPI.h>
 #include <nRF24L01.h>
@@ -7,6 +8,6 @@
 extern RF24 radio;
 extern const byte thisSlaveAddress[5];
 
-bool transmit_data(byte stuffToSend[]);
+void transmit_data(uint8_t stuffToSend[]);
 
-bool receive_data(byte dataReceived[]);
+void receive_data(uint8_t dataReceived[]);

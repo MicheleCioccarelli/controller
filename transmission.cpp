@@ -1,38 +1,32 @@
 #include "transmission.h"
+#include "utilities.h"
 
-#define ARRAY_SIZE 13
-
-bool transmit_data(byte stuffToSend[])
+void transmit_data(uint8_t stuffToSend[])
 {
-    Serial.println("called");
-    if (radio.write(&stuffToSend, ARRAY_SIZE))
-    {
-        Serial.println("data sent");
-        //Serial.println(dataToSend);
-        return true;
-    } else 
-    {
-        Serial.println("Tx failed");
-        return false;
+    if (radio.write(&stuffToSend, sizeof(stuffToSend))) // ARRAY_SIZE
+    {   
+    print_array(stuffToSend);
+        Serial.println("Success");
+    } else {
+        Serial.println("Fail");
     }
 }
 
-bool receive_data(byte dataReceived[])
-{
-    if ( radio.available())
-    {
-        radio.read( &dataReceived, ARRAY_SIZE);
-        Serial.println("Data received ");
-        for (int i = 0; i < ARRAY_SIZE; i++)
-        {
-          int info = dataReceived[i];
-          Serial.print(info);
-          Serial.print(" ");
-        }
-        return true;
+void receive_data(uint8_t dataReceived[])
+{   
+    if ( radio.available()) {
+        Serial.println("Success");
+                print_array(dataReceived);
+        radio.read(&dataReceived, sizeof(dataReceived));
+
+        print_array(dataReceived);
+        //Serial.println(dataReceived[7]);
+        /*for(int i = 0; i < ARRAY_SIZE; i++)
+            dataReceived[i] = i;
+        print_array(dataReceived);*/
+        
+    } else {
+        Serial.println("Fail");
     }
-    else 
-    {
-        return false;
-    }
+        
 }

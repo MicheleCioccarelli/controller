@@ -5,31 +5,28 @@
 #define TX 1
 #define RX 2
 
-#define STATE TX
+#define STATE RX
 
 #define CE_PIN   9
 #define CSN_PIN 10
-#define ARRAY_SIZE 13
+#define ARRAY_SIZE 10
 
 RF24 radio(CE_PIN, CSN_PIN);
 
 const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
 
-// This is manipulated by transmit_data() and receive_data()
-bool result = false;
-
 #if STATE == TX
-    byte stuffToSend[ARRAY_SIZE];
+    uint8_t stuffToSend[ARRAY_SIZE] = {};
 #elif STATE == RX
-    byte dataReceived[ARRAY_SIZE];
+    uint8_t dataReceived[ARRAY_SIZE] = {};
 #endif
 
-Button button(0, 1, 2);
-Button lever(1, 7, 3);
-Joystick j_l(2, 4);
-Joystick j_r(4, 6);
-Joystick p_l(6, 7);
-Joystick p_r(8, 9);
+Button button(0, 1);
+Button lever(1, 7);
+Joystick j_l(2);
+Joystick j_r(4);
+Joystick p_l(6);
+Joystick p_r(8);
     
 void setup() 
 {
@@ -47,11 +44,26 @@ void setup()
     #endif
 }
 
-void loop() {
+void loop() 
+{
     #if STATE == TX
-        result = transmit_data(stuffToSend);
-    #elif STATE == RX-
-        result = receive_data(dataReceived);
+    Serial.println("TX");
+    
+        button.set_state(1);
+        lever.set_state(0);
+        j_l.set_values(12, 100);
+        j_r.set_values(11, 33);
+        p_l.set_values(200, 44);
+        p_r.set_values(98, 69); 
+
+        inject_all(button, lever, j_l, j_r, p_l, p_r, stuffToSend);
+        transmit_data(stuffToSend);
+
+    #elif STATE == RX
+
+        receive_data(dataReceived);    
+        update_all(button, lever, j_l, j_r, p_l, p_r, dataReceived);
+        
     #endif
     delay(1000);
 }

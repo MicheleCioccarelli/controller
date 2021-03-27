@@ -1,4 +1,5 @@
 #pragma once
+#define ARRAY_SIZE 10
 
 #include <Arduino.h>
 #include "classes.h"
@@ -10,13 +11,12 @@
  *
  *          | Button | Lever | j_l | j_r | p_l | p_r | unused | unused | unused | (9 elements)
  */
-void inject_all(Button button, Button lever,
-                Joystick j_l, Joystick j_r, Joystick p_l, Joystick p_r,
-                byte  stuffToSend[]);
+void inject_all(Button& button, Button& lever,
+                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r,
+                uint8_t stuffToSend[]);
 
-void update_all(Button button, Button lever,
-                Joystick j_l, Joystick j_r, Joystick p_l, Joystick p_r,
-                byte dataReceived[]);
-void print_array(byte array[]);
+void update_all(Button& button, Button& lever,
+                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r,
+                const uint8_t dataReceived[]);
 
-                
+void print_array(const uint8_t array[]);
