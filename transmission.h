@@ -7,7 +7,14 @@
 
 extern RF24 radio;
 extern const byte thisSlaveAddress[5];
+extern int state;
 
-void transmit_data(uint8_t stuffToSend[]);
+extern uint8_t stuffToSend[];
+extern uint8_t dataReceived[];
 
-void receive_data(uint8_t dataReceived[]);
+// Main State
+extern bool has_synced;
+
+void transmit_data();
+
+void receive_data();

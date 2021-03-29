@@ -1,8 +1,10 @@
 #pragma once
 #define ARRAY_SIZE 10
 
-#include <Arduino.h>
 #include "classes.h"
+
+extern uint8_t stuffToSend[];
+extern uint8_t dataReceived[];
 
 /*
  * This function sets up stuffToSend[], it fills the array each time with the values provided,
@@ -12,11 +14,9 @@
  *          | Button | Lever | j_l | j_r | p_l | p_r | unused | unused | unused | (9 elements)
  */
 void inject_all(Button& button, Button& lever,
-                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r,
-                uint8_t stuffToSend[]);
+                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r);
 
 void update_all(Button& button, Button& lever,
-                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r,
-                const uint8_t dataReceived[]);
+                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r);
 
 void print_array(const uint8_t array[]);
