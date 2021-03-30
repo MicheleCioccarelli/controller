@@ -3,8 +3,7 @@
 
 #include "classes.h"
 
-extern uint8_t stuffToSend[];
-extern uint8_t dataReceived[];
+extern uint8_t dataTrasnfer[];
 
 /*
  * This function sets up stuffToSend[], it fills the array each time with the values provided,
