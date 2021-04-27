@@ -3,18 +3,19 @@
 
 void transmit_data()
 {
-    if (radio.write(&dataTrasnfer, ARRAY_SIZE)) {  
-        print_array(dataTrasnfer);
-        Serial.println("Success");
+        Serial.println("Called");
+    if (radio.write(&stuffToSend, ARRAY_SIZE)) {  
+        Serial.print("Information sent succesfully: ");
+        print_array(stuffToSend);
     }
 }
 
 void receive_data()
 {  
-    if ( radio.available()) {
-        Serial.println("Success");
-       
-        radio.read(&dataTrasnfer, ARRAY_SIZE);
-        print_array(dataTrasnfer);
+    Serial.println("Called");
+    if ( radio.available()) {       
+        radio.read(&dataReceived, ARRAY_SIZE);
+        Serial.print("Data received succesfully: ");
+        print_array(dataReceived);
     }
 }

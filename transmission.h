@@ -8,7 +8,8 @@
 extern RF24 radio;
 extern const byte thisSlaveAddress[5];
 
-extern uint8_t dataTrasnfer[];
+extern uint8_t stuffToSend[];
+extern uint8_t dataReceived[];
 
 void transmit_data();
 

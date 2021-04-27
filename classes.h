@@ -2,8 +2,6 @@
 
 #include <Arduino.h>
 
-extern uint8_t dataTrasnfer[];
-
 class Component {
 protected:
     const uint8_t pin;
@@ -23,7 +21,7 @@ class Joystick : protected Component
 
 public:
     void set_values(uint8_t XValue, uint8_t YValue);
-    void inject_values();
+    void inject_values(uint8_t stuffToSend[]);
 
     uint8_t get_value() {return this->Xvalue; } 
 
@@ -33,7 +31,7 @@ public:
     Joystick(uint8_t Index, uint8_t pin, uint8_t XValue, uint8_t YValue)
     : Component(Index, pin), Xvalue(XValue), Yvalue(YValue) {}
 
-    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r);
+    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r, uint8_t stuffToSend[]);
 };
 
 class Button : protected Component {
@@ -49,7 +47,7 @@ public:
     void set_id(uint8_t Id);
     void set_state(uint8_t State);
     void set_value(uint8_t Value);
-    void inject_value();
+    void inject_value(uint8_t stuffToSend[]);
     uint8_t get_id() { return this->id; }
     uint8_t get_value() {return this->value; } 
 
@@ -59,5 +57,5 @@ public:
     Button(uint8_t Index, uint8_t Id, uint8_t pin, uint8_t State)
     : Component(Index, pin), state(State), id(Id), value(0) {}
 
-    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& P_r);
+    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& P_r, const uint8_t stuffToSend[]);
 };

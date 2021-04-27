@@ -15,9 +15,13 @@ RF24 radio(CE_PIN, CSN_PIN);
 
 const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
 
-uint8_t dataTrasnfer[ARRAY_SIZE] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+// Using two arrays avoids confusion when debugging
+#if STATE == TX
+    uint8_t stuffToSend[ARRAY_SIZE] = {};
+#elif STATE == RX
+    uint8_t dataReceived[ARRAY_SIZE] = {};
+#endif
 
-// Initialize all the components
 Button button(0, 1);
 Button lever(1, 7);
 Joystick j_l(2);
@@ -43,23 +47,24 @@ void setup()
 
 void loop() 
 {
-#if STATE == TX
+    #if STATE == TX
+        button.set_state(1);
+        lever.set_state(0);
+        j_l.set_values(12, 100);
+        j_r.set_values(11, 33);
+        p_l.set_values(200, 44);
+        p_r.set_values(98, 69); 
+        
+        print_array(stuffToSend);
+        
+        inject_all(button, lever, j_l, j_r, p_l, p_r);
+        transmit_data();
 
-    button.set_state(1);
-    lever.set_state(0);
-    j_l.set_values(12, 100);
-    j_r.set_values(11, 33);
-    p_l.set_values(200, 44);
-    p_r.set_values(98, 69); 
+    #elif STATE == RX
 
-    inject_all(button, lever, j_l, j_r, p_l, p_r);
-    transmit_data();
-
-#elif STATE == RX
-
-    receive_data();    
-    update_all(button, lever, j_l, j_r, p_l, p_r);
-#endif
-
-delay(1000);
+        receive_data();    
+        update_all(button, lever, j_l, j_r, p_l, p_r);
+        
+    #endif
+    delay(1000);
 }
