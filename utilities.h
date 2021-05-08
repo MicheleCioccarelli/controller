@@ -11,7 +11,7 @@ extern uint8_t dataReceived[];
  * anything unknown is defaulted as 0
  * this is the layout of the array:
  *
- *          | Button | Lever | j_l | j_r | p_l | p_r | unused | unused | unused | (9 elements)
+ *          | Button | Lever | j_lX | j_lY | j_rX | j_lY | p_l | p_r | unused | (9 elements)
  */
 void inject_all(Button& button, Button& lever,
                 Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r);

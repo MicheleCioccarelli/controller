@@ -6,7 +6,7 @@ void Joystick::set_values(uint8_t XValue, uint8_t YValue)
     this->Yvalue = YValue;
 }
 
-void Joystick::inject_values(uint8_t stuffToSend[])
+void Joystick::inject_values()
 {
     stuffToSend[this->index] = this->Xvalue;
     stuffToSend[this->index + 1 ] = this->Yvalue;
@@ -24,7 +24,7 @@ void Button::set_value(uint8_t Value) {
     this->value = Value;
 }
 
-void Button::inject_value(uint8_t stuffToSend[])
+void Button::inject_value()
 {
     this->value = this->id * 10 + this->state;
     stuffToSend[this->index] = this->state;

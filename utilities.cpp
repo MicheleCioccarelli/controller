@@ -12,12 +12,12 @@ void print_array(const uint8_t array[])
 void inject_all(Button& button, Button& lever,
                 Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r)
 {
-    button.inject_value(stuffToSend);
-    lever.inject_value(stuffToSend);
-    j_l.inject_values(stuffToSend);
-    j_r.inject_values(stuffToSend);
-    p_l.inject_values(stuffToSend);
-    p_r.inject_values(stuffToSend);
+    button.inject_value();
+    lever.inject_value();
+    j_l.inject_values();
+    j_r.inject_values();
+    p_l.inject_values();
+    p_r.inject_values();
 }
 
 void update_all(Button& button, Button& lever,

@@ -1,6 +1,7 @@
 #include "transmission.h"
 #include "classes.h"
 #include "utilities.h"
+#include "decoder.h"
 
 #define TX 1
 #define RX 2
@@ -62,8 +63,9 @@ void loop()
 
     #elif STATE == RX
 
-        receive_data();    
-        update_all(button, lever, j_l, j_r, p_l, p_r);
+        receive_data();
+        decode();
+
         
     #endif
     delay(1000);
