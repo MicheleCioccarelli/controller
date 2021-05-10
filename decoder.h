@@ -1,4 +1,6 @@
 #pragma once
+#include "classes.h"
+#include "utilities.h"
 
 extern uint8_t dataReceived[];
 
@@ -6,23 +8,23 @@ extern Button button;
 extern Button lever;
 extern Joystick j_l;
 extern Joystick j_r;
-extern Joystick p_l;
-extern Joystick p_r;
+extern Potentiometer p_l;
+extern Potentiometer p_r;
 
 void decode();
 
-void button(uint8_t value);
+void print_button();
 
-void lever(uint8_t value);
+void print_lever();
 
-void j_lX(uint8_t value);
+void print_j_lX();
 
-void j_lY(uint8_t value);
+void print_j_lY();
 
-void j_rX(uint8_t value);
+void print_j_rX();
 
-void j_rY (uint8_t value);
+void print_j_rY ();
 
-void p_l(uint8_t value);
+void print_p_l();
 
-void p_r(uint8_t value);
+void print_p_r();

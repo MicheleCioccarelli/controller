@@ -11,6 +11,8 @@ extern const byte thisSlaveAddress[5];
 extern uint8_t stuffToSend[];
 extern uint8_t dataReceived[];
 
+// Stream stuffToSend[] to the receiver
 void transmit_data();
 
+// Empty the nrf24l01's data buffer into dataReceived[]
 void receive_data();

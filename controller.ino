@@ -27,8 +27,8 @@ Button button(0, 1);
 Button lever(1, 7);
 Joystick j_l(2);
 Joystick j_r(4);
-Joystick p_l(6);
-Joystick p_r(8);
+Potentiometer p_l(6);
+Potentiometer p_r(7);
     
 void setup() 
 {
@@ -39,7 +39,6 @@ void setup()
     #if STATE == TX
         radio.setRetries(3,5);
         radio.openWritingPipe(thisSlaveAddress); 
-
     #elif STATE == RX
         radio.openReadingPipe(1, thisSlaveAddress);
         radio.startListening();
@@ -53,20 +52,17 @@ void loop()
         lever.set_state(0);
         j_l.set_values(12, 100);
         j_r.set_values(11, 33);
-        p_l.set_values(200, 44);
-        p_r.set_values(98, 69); 
+        p_l.set_values(200);
+        p_r.set_values(98); 
         
         print_array(stuffToSend);
         
         inject_all(button, lever, j_l, j_r, p_l, p_r);
         transmit_data();
-
     #elif STATE == RX
-
         receive_data();
         decode();
-
-        
     #endif
+
     delay(1000);
 }

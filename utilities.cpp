@@ -10,10 +10,10 @@ void print_array(const uint8_t array[])
 }
 
 void inject_all(Button& button, Button& lever,
-                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r)
+                Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r)
 {
-    button.inject_value();
-    lever.inject_value();
+    button.inject_values();
+    lever.inject_values();
     j_l.inject_values();
     j_r.inject_values();
     p_l.inject_values();
@@ -21,12 +21,12 @@ void inject_all(Button& button, Button& lever,
 }
 
 void update_all(Button& button, Button& lever,
-                Joystick& j_l, Joystick& j_r, Joystick& p_l, Joystick& p_r)
+                Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r)
 {
-    button.set_value(dataReceived[0]);
-    lever.set_value(dataReceived[1]);
+    button.set_values(dataReceived[0]);
+    lever.set_values(dataReceived[1]);
     j_l.set_values(dataReceived[2], dataReceived[3]);
     j_l.set_values(dataReceived[4], dataReceived[5]);
-    p_l.set_values(dataReceived[6], dataReceived[7]);
-    p_r.set_values(dataReceived[8], dataReceived[9]);
+    p_l.set_values(dataReceived[6]);
+    p_r.set_values(dataReceived[7]);
 }
