@@ -6,6 +6,7 @@
 #define TX 1
 #define RX 2
 
+#define DEBUG 1
 #define STATE RX
 
 #define CE_PIN   9
@@ -37,6 +38,14 @@ void setup()
     radio.setDataRate( RF24_250KBPS );
 
     #if STATE == TX
+
+        button.set_input(button.pin);
+        lever.set_input(lever.pin);
+        j_l.set_input(j_l.Xpin);
+        j_r.set_input(j_r.Ypin);
+        p_l.set_input(p_l.pin);
+        p_r.set_input(p_r.pin);
+
         radio.setRetries(3,5);
         radio.openWritingPipe(thisSlaveAddress); 
     #elif STATE == RX
@@ -45,23 +54,33 @@ void setup()
     #endif
 }
 
+
 void loop() 
 {
     #if STATE == TX
-        button.set_state(1);
-        lever.set_state(0);
-        j_l.set_values(12, 100);
-        j_r.set_values(11, 33);
-        p_l.set_values(200);
-        p_r.set_values(98); 
-        
+    if DEBUG == 1
+        button.set_state(0);
+        lever.set_state(1);
+        j_l.set_values(2, 3);
+        j_r.set_values(4, 5);
+        p_l.set_values(6);
+        p_r.set_values(7);
+    #endif
+
+        button.get_input();
+        lever.get_input();
+        j_l.get_input();
+        j_r.get_input();
+        p_l.get_input();
+        p_r.get_input();
+
         print_array(stuffToSend);
-        
         inject_all(button, lever, j_l, j_r, p_l, p_r);
         transmit_data();
+        
     #elif STATE == RX
         receive_data();
-        decode();
+        decoder();
     #endif
 
     delay(1000);

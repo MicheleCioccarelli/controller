@@ -6,6 +6,11 @@ void Joystick::set_values(uint8_t XValue, uint8_t YValue)
     this->Yvalue = YValue;
 }
 
+void Joystick::get_input() 
+{
+    set_values(analogRead(Xpin), analogRead(Ypin))
+}
+
 void Joystick::inject_values()
 {
     stuffToSend[this->index] = this->Xvalue;
@@ -24,10 +29,18 @@ void Button::set_values(uint8_t Value) {
     this->value = Value;
 }
 
+void Button::get_input() {
+    this->state = analogRead(this->pin);
+}
+
 void Button::inject_values()
 {
     this->value = this->id * 10 + this->state;
     stuffToSend[this->index] = this->state;
+}
+// ========================================================
+void Potentiometer::get_input() {
+    this->value = map(analogRead(this->pin), 0, 1023, 0, 255);
 }
 
 void Potentiometer::inject_values() {

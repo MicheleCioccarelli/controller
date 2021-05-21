@@ -26,7 +26,7 @@ void update_all(Button& button, Button& lever,
     button.set_values(dataReceived[0]);
     lever.set_values(dataReceived[1]);
     j_l.set_values(dataReceived[2], dataReceived[3]);
-    j_l.set_values(dataReceived[4], dataReceived[5]);
+    j_r.set_values(dataReceived[4], dataReceived[5]);
     p_l.set_values(dataReceived[6]);
     p_r.set_values(dataReceived[7]);
 }

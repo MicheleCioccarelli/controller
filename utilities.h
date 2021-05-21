@@ -23,3 +23,7 @@ void update_all(Button& button, Button& lever,
                 Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 
 void print_array(const uint8_t array[]);
+
+/* Take input for all the objects
+ *
+void input();

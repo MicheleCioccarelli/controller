@@ -11,7 +11,7 @@ extern Joystick j_r;
 extern Potentiometer p_l;
 extern Potentiometer p_r;
 
-void decode();
+void decoder();
 
 void print_button();
 

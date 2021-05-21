@@ -43,12 +43,12 @@ void print_p_r() {
 }
 
 // Analyze dataReceived[] and call the appopriate function for every index
-void decode() 
+void decoder() 
 {
     // Update all the objects with the respective values from dataReceived[]
     update_all(button, lever, j_l, j_r, p_l, p_r);
 
-    for (uint8_t i = 0; i <= ARRAY_SIZE; i++)
+    for (uint8_t i = 0; i < ARRAY_SIZE; i++)
     {
         switch (i)
         {
@@ -56,20 +56,18 @@ void decode()
                 print_button(); break;
             case 1:
                 print_lever(); break;
-            case 2: 
-                // The 2 left joystick cases are merged together, same later with the right
-            case 3:
+            case 3: 
                 print_j_l(); break;
             case 4:
-            case 5:
                 print_j_r(); break;
             case 6:
                 print_p_l(); break;
             case 7:
                 print_p_r(); break;
-                // Cases 6 to 10 don't have a purpose yet and will be discarded by default
+                // Cases 8 to 10 don't have a purpose yet and will be discarded by default
             default:
                 break;
         }
     }
+    Serial.println("");
 }

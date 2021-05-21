@@ -12,7 +12,6 @@ void transmit_data()
 
 void receive_data()
 {  
-    Serial.println("Called");
     if ( radio.available()) {       
         radio.read(&dataReceived, ARRAY_SIZE);
     }
