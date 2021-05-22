@@ -39,6 +39,14 @@ void setup()
 
     #if STATE == TX
 
+/* Input pins table:
+ *  lever1 = 7      | lever2 = 4
+ *  b1 = 8  | b2 = 9    | b3 = 2    | b4 = 3
+ *  j1Y = A0    | j1X = A1  | j2X = A2  | j2Y = A3
+ *  p1 = A7     | p2 = A6
+ * 
+ * Check howToMechatronics for how to actually hook it up
+*/
         button.set_input(button.pin);
         lever.set_input(lever.pin);
         j_l.set_input(j_l.Xpin);

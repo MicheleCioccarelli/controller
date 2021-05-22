@@ -8,7 +8,7 @@ void Joystick::set_values(uint8_t XValue, uint8_t YValue)
 
 void Joystick::get_input() 
 {
-    set_values(analogRead(Xpin), analogRead(Ypin))
+    set_values(map(analogRead(Xpin), 0, 1023, 0, 255), map(analogRead(Ypin), 0, 1023, 0, 255));
 }
 
 void Joystick::inject_values()
