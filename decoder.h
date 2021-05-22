@@ -4,27 +4,16 @@
 
 extern uint8_t dataReceived[];
 
-extern Button button;
-extern Button lever;
-extern Joystick j_l;
-extern Joystick j_r;
-extern Potentiometer p_l;
-extern Potentiometer p_r;
+void decoder(Button &button, Button &lever, Joystick &j_l, Joystick &j_r, Potentiometer &p_l, Potentiometer &p_r);
 
-void decoder();
+void print_button(Button &button);
 
-void print_button();
+void print_lever(Button &lever);
 
-void print_lever();
+void print_j_l(Joystick &j_l);
 
-void print_j_lX();
+void print_j_r(Joystick &j_r);
 
-void print_j_lY();
+void print_p_l(Potentiometer &p_l);
 
-void print_j_rX();
-
-void print_j_rY ();
-
-void print_p_l();
-
-void print_p_r();
+void print_p_r(Potentiometer &p_r);

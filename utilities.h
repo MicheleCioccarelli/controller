@@ -24,6 +24,5 @@ void update_all(Button& button, Button& lever,
 
 void print_array(const uint8_t array[]);
 
-/* Take input for all the objects
- *
+// Take input for all the objects
 void input();

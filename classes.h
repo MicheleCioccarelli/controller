@@ -10,14 +10,18 @@ protected:
     const uint8_t pin;
     // This is the index int array[] at which the object's value is stored
     const uint8_t index;
+    // The id is used to differentiate between objects of the same type
+    // For example to distinguish between the six buttons or the 2 levers.
+    uint8_t id;
 
     void set_input(uint8_t Pin) {pinMode(Pin, INPUT);}
-
-    Component(uint8_t Index, uint8_t pin = 0)
-    : index(Index), pin(pin) {}
+public:
+    Component(uint8_t Index, uint8_t Pin = 0, uint8_t Id = 0)
+    : index(Index), pin(Pin), id(Id) {}
 };
 
 class Button;
+class Potentiometer;
 
 class Joystick : protected Component
 {
@@ -38,21 +42,18 @@ public:
     uint8_t get_y() {return this->Yvalue;}
     uint8_t get_index() {return this->index;}
 
-    Joystick(uint8_t Index, uint8_t XPin = 0, uint8_t Ypin = 0)
+    Joystick(uint8_t Index, uint8_t XPin = 0, uint8_t YPin = 0)
     : Component(Index, pin), Xpin(XPin), Ypin(YPin), Xvalue(0), Yvalue(0) {}
 
     Joystick(uint8_t Index, uint8_t XPin, uint8_t YPin, uint8_t XValue, uint8_t YValue)
     : Component(Index), Xpin(XPin), Ypin(YPin), Xvalue(XValue), Yvalue(YValue) {}
 
     friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
+    friend void update_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 };
 
 class Button : protected Component 
 {
-    // The id is used to differentiate between objects of the same type
-    // For example to distinguish between the six buttons.
-    uint8_t id;
-
     // Either 0 or 1
     uint8_t state;
 
@@ -73,12 +74,13 @@ public:
     uint8_t get_value() {return this->value; } 
 
     Button(uint8_t Index, uint8_t Id, uint8_t pin = 0)
-    : Component(Index, pin), state(0), id(Id), value(0) {}
+    : Component(Index, pin, Id), state(0), value(0) {}
 
-    Button(uint8_t Index, uint8_t Id, uint8_t pin, uint8_t State = 0)
-    : Component(Index, pin), state(State), id(Id), value(0) {}
+    //Button(uint8_t Index, uint8_t Id, uint8_t pin, uint8_t State = 0)
+    //: Component(Index, pin, Id), state(State), value(0) {} used for debugging
 
     friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
+    friend void update_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 };
 
 class Potentiometer : protected Component 
@@ -97,4 +99,5 @@ public:
     : Component(index, pin), value(value) {}
 
     friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
+    friend void update_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 };
