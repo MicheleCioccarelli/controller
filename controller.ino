@@ -28,12 +28,12 @@ const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
  * Button objects. The handling function should look for input on their pins and write it into the 
  * respective objects
  */
-Component button1(0, 1, 8); // Index, id, pin
-Component button2(0, 2, 9);
-Component button3(0, 3, 2);
-Component button4(0, 4, 3);
-Component lever1(1, 1, 7);
-Component lever2(1, 2, 4);
+Waiter button1(0, 1, 8); // Index, id, pin
+Waiter button2(0, 2, 9);
+Waiter button3(0, 3, 2);
+Waiter button4(0, 4, 3);
+Waiter lever1(1, 1, 7);
+Waiter lever2(1, 2, 4);
 
 // Button objects are pure, handled by a function and Component objects
 Button button(0, 0, 0);

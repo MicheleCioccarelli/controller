@@ -16,3 +16,8 @@ This class is used for both buttons and switched (lever).<br><br>
 Every joystick object occupies two places in stuffToSend[]: the on it is given via it's constructor and the one right after it. It holds Xvalue and Yvalue. It has 2 constructors: one for just pin number and index, where its unique variables are set to 0, and one where they can be provided.<br><br>
 <b>Potentiometer</b>
 A potentiometer onlhy needs one value, which needs to be processed as it gets input using map(), ths is because the component can register values between 0 and 1023, which is too large for uint8_t, map() cuts is down to a value between 0 and 255. 
+
+<b> Waiter </b>
+
+Waiter objects wait for Button input, this is because there are 6 buttons and 2 levers, but only 1 button and 1 lever can be sent at one time.
+Once one of this objects receives an input, it updates the Button object it is linked to.

@@ -16,7 +16,7 @@ extern uint8_t dataReceived[];
 void inject_all(Button& button, Button& lever,
                 Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 
-/* Put all the values stored in dataReceived[] and pu them in the respective objects 
+/* Put all the values stored in dataReceived[] and put them in the respective objects 
  * the order in which this is done is the on specified in inject_all()'s comment,
  */
 void update_all(Button& button, Button& lever,
