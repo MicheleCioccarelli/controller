@@ -6,10 +6,9 @@
 #define TX 1
 #define RX 2
 
-#define DEBUG 1
-#define STATE RX
+#define STATE TX
 
-#define CE_PIN   9
+#define CE_PIN 6
 #define CSN_PIN 10
 #define ARRAY_SIZE 10
 
@@ -28,16 +27,12 @@ const byte thisSlaveAddress[5] = {'R','x','A','A','A'};
  * Button objects. The handling function should look for input on their pins and write it into the 
  * respective objects
  */
-Waiter button1(0, 1, 8); // Index, id, pin
-Waiter button2(0, 2, 9);
-Waiter button3(0, 3, 2);
-Waiter button4(0, 4, 3);
-Waiter lever1(1, 1, 7);
-Waiter lever2(1, 2, 4);
+Waiter buttons[4] {Waiter(0, 1, 8), Waiter(0, 2, 9), Waiter(0, 3, 5), Waiter(0, 4, 3)};
+Waiter levers[2] {Waiter(1, 1, 7), Waiter(1, 2, 4)};
 
 // Button objects are pure, handled by a function and Component objects
-Button button(0, 0, 0);
-Button lever(0, 0, 0);
+Button button(0); // index
+Button lever(1);
 Joystick j_l(2, A1, A0); // Index, Xpin, Ypin
 Joystick j_r(4, A2, A3);
 Potentiometer p_l(6, A7); // Index, pin
@@ -50,66 +45,85 @@ void setup()
     radio.setDataRate( RF24_250KBPS );
 
     #if STATE == TX
-
-/* Input pins table:
- *  lever1 = 7      | lever2 = 4
- *  b1 = 8  | b2 = 9    | b3 = 2    | b4 = 3
- *  j1Y = A0    | j1X = A1  | j2X = A2  | j2Y = A3
- *  p1 = A7     | p2 = A6
- * 
- * Check howToMechatronics for how to actually hook it up
-*/
-        button1.set_input(button1.pin);
-        button2.set_input(button2.pin);        
-        button3.set_input(button3.pin);        
-        button4.set_input(button4.pin);        
-        lever1.set_input(lever1.pin);
-        lever2.set_input(lever2.pin);
-        j_l.set_input(j_l.Xpin);
-        j_r.set_input(j_r.Ypin);
-        p_l.set_input(p_l.pin);
-        p_r.set_input(p_r.pin);
-
         radio.setRetries(3,5);
         radio.openWritingPipe(thisSlaveAddress); 
+
     #elif STATE == RX
         radio.openReadingPipe(1, thisSlaveAddress);
         radio.startListening();
     #endif
 }
 
-
-void loop() 
-{
+void loop() {
     #if STATE == TX
-    #if DEBUG == 1
-        button.set_state(0);
-        lever.set_state(1);
-        j_l.set_values(2, 3);
-        j_r.set_values(4, 5);
-        p_l.set_values(6);
-        p_r.set_values(7);
-    #endif
 
-        /*button1.get_input();
-        button2.get_input();        
-        button3.get_input();        
-        button4.get_input();        
-        lever1.get_input();
-        lever2.get_input();*/ Need to create function
+        for (Waiter &c : buttons) 
+        {
+            c.get_input();
+
+            if (c.oldState != c.newState) 
+            {
+                c.oldState = c.newState;
+                button.set_id(c.id);
+                button.set_state(c.newState);/*
+                Serial.print(c.id);
+                Serial.print(c.newState);
+                Serial.print("    ");
+                Serial.print(button.id);
+                Serial.println(button.newState);*/  
+                button.inject_values();
+                break;
+            }
+        }
+            //print_array(stuffToSend);
+        for (Waiter &c : levers) 
+        {
+            c.get_input();
+
+            if (c.oldState != c.newState) 
+            {
+                c.oldState = c.newState;
+                lever.set_id(c.id);
+                lever.set_state(c.newState);
+/*
+                Serial.print(c.id);
+                Serial.print(c.newState);
+                Serial.print("    ");
+                Serial.print(lever.id);
+                Serial.println(lever.newState);*/
+                
+                lever.inject_values();
+                break;
+            }
+        }
+        /*
         j_l.get_input();
         j_r.get_input();
         p_l.get_input();
-        p_r.get_input();
-
+        p_r.get_input();*/
+/*
+        Serial.print(buttons[0].newState);
+        Serial.print("    ");
+        Serial.print(buttons[1].newState);
+        Serial.print("    ");
+        Serial.print(buttons[2].newState);
+        Serial.print("    ");
+        Serial.print(buttons[3].newState);
+        Serial.print("    ");
+        Serial.print(levers[0].newState);
+        Serial.print("    ");
+        Serial.print(levers[1].newState);
+        Serial.println("    ");*/
+                
         print_array(stuffToSend);
         inject_all(button, lever, j_l, j_r, p_l, p_r);
         transmit_data();
         
     #elif STATE == RX
         receive_data();
-        decoder(button, lever, j_l, j_r, p_l, p_r);
+        print_array(dataReceived);
+        //decoder(button, lever, j_l, j_r, p_l, p_r);
     #endif
-
-    delay(500);
+    reset(button, lever, j_l, j_r, p_l, p_r);
+    delay(100);
 }

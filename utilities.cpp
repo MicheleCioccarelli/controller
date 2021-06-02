@@ -30,3 +30,12 @@ void update_all(Button& button, Button& lever,
     p_l.set_values(dataReceived[6]);
     p_r.set_values(dataReceived[7]);
 }
+
+void reset(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r) {
+    button.value = 0;
+    lever.value = 0;
+    j_l.set_values(0, 0);
+    j_r.set_values(0, 0);
+    p_l.set_values(0);
+    p_r.set_values(0);
+}

@@ -21,3 +21,11 @@ A potentiometer onlhy needs one value, which needs to be processed as it gets in
 
 Waiter objects wait for Button input, this is because there are 6 buttons and 2 levers, but only 1 button and 1 lever can be sent at one time.
 Once one of this objects receives an input, it updates the Button object it is linked to.
+
+<b> Pinout </b>
+lever1 = 7  | lever2 = 4
+b1 = 8      | b2 = 9    | b3 = 2    | b4 = 3
+j1Y = A0    | j1X = A1  | j2X = A2  | j2Y = A3
+p1 = A7     | p2 = A6
+
+Check howToMechatronics for how to actually hook it up
