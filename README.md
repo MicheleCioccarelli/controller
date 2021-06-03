@@ -24,8 +24,9 @@ Once one of this objects receives an input, it updates the Button object it is l
 
 <b> Pinout </b>
 lever1 = 7  | lever2 = 4
-b1 = 8      | b2 = 9    | b3 = 2    | b4 = 3
+b1 = 8      | b2 = 9    | b3 = 2    | b4 = 3    | j_lButton = 1    | j_rButton = 0
 j1Y = A0    | j1X = A1  | j2X = A2  | j2Y = A3
 p1 = A7     | p2 = A6
 
 Check howToMechatronics for how to actually hook it up
+Joystick pins may be inverted

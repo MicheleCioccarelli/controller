@@ -1,4 +1,4 @@
-#include "decoder.h"
+/*#include "decoder.h"
 
 void print_button(Button &button) {
     Serial.print("Button id: ");
@@ -71,3 +71,4 @@ void decoder(Button &button, Button &lever, Joystick &j_l, Joystick &j_r, Potent
     }
     Serial.println("");
 }
+*/

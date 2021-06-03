@@ -17,25 +17,12 @@ void Joystick::inject_values()
     stuffToSend[this->index + 1] = this->Yvalue;
 }
 // ========================================================
-/*
-void Waiter::set_state(uint8_t State) {
-    this->state = State;
-}*/
-
 void Waiter::set_values(uint8_t Value) {
     this->value = Value;
 }
 
 void Waiter::get_input() {
     this->newState = digitalRead(this->pin);
-}
-
-void Waiter::set_id(uint8_t Id) {
-    this->id = Id;
-}
-
-void Waiter::set_state(uint8_t State) {
-    this->newState = State;
 }
 
 void Button::inject_values()

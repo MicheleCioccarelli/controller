@@ -32,14 +32,6 @@ public:
     
     //void set_state(uint8_t State);
     void set_values(uint8_t Value);
-
-    void set_id(uint8_t Id);
-    void set_state(uint8_t State);
-    uint8_t get_id() const  { return this->id; }
-    uint8_t get_value() const  {return this->value; } 
-    
-    int get_newState() const { return this->newState; }
-    int get_oldState() const {return this->oldState; }
     
     void get_input();
     void set_input(uint8_t Pin) {pinMode(Pin, INPUT_PULLUP);}
@@ -67,17 +59,12 @@ public:
     // Insert Xvalue and Yvalue in stuffToSend[] at the index provided with the constructor
     void inject_values();
 
-    uint8_t get_x() const  {return this->Xvalue;} 
-    uint8_t get_y() const  {return this->Yvalue;}
-    uint8_t get_index() const  {return this->index;}
-
     Joystick(uint8_t Index, uint8_t XPin = 0, uint8_t YPin = 0)
     : Component(Index, pin), Xpin(XPin), Ypin(YPin), Xvalue(0), Yvalue(0) {this->set_input(pin);}
 
     Joystick(uint8_t Index, uint8_t XPin, uint8_t YPin, uint8_t XValue, uint8_t YValue)
     : Component(Index), Xpin(XPin), Ypin(YPin), Xvalue(XValue), Yvalue(YValue) {this->set_input(pin);}
 
-    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
     friend void update_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 };
 
@@ -87,32 +74,26 @@ public:
     // Insert Value in stuffToSend[] at the index specified with the constructor
     // value is a compressed variable
     void inject_values();
-    uint8_t get_id() const  { return this->id; }
-    uint8_t get_value() const  {return this->value; } 
 
     Button(uint8_t Index = 0, uint8_t Pin = 0, uint8_t Id = 0)
     : Waiter(Index, Pin, Id) {this->set_input(pin);}
 
-    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
     friend void update_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 };
 
 class Potentiometer : public Component 
 {
-    uint8_t value;
-    
 public:
+    uint8_t value;
+
     void set_values(uint8_t value) {this->value = value;}
     void set_input(uint8_t Pin) {pinMode(Pin, INPUT);}
     void get_input();
-
-    uint8_t get_values() const  {return this->value;}
 
     void inject_values();
 
     Potentiometer(uint8_t index, uint8_t pin = 0, uint8_t value = 0)
     : Component(index, pin), value(value) {this->set_input(pin);}
-
-    friend void inject_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
+    
     friend void update_all(Button& button, Button& lever, Joystick& j_l, Joystick& j_r, Potentiometer& p_l, Potentiometer& p_r);
 };

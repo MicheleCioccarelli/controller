@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "classes.h"
 #include "utilities.h"
 
@@ -16,4 +16,4 @@ void print_j_r(Joystick &j_r);
 
 void print_p_l(Potentiometer &p_l);
 
-void print_p_r(Potentiometer &p_r);
+void print_p_r(Potentiometer &p_r);*/
